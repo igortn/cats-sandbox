@@ -15,13 +15,3 @@ object FunctorOps {
 
 }
 
-object Test {
-  import FunctorOps._
-
-  def run(): Unit = {
-    assert(lenOption(Some("abc")).contains(3))
-    assert(lenOption(None).isEmpty)
-
-    println("assertions passed ...")
-  }
-}
