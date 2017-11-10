@@ -1,5 +1,6 @@
 package free.logo
 
+import cats._
 import cats.free.Free
 
 sealed trait Instruction[A]
@@ -10,21 +11,30 @@ case class RotateRight(position: Position, degree: Degree) extends Instruction[P
 case class ShowPosition(position: Position) extends Instruction[Unit]
 
 case class Position(x: Double, y: Double, heading: Degree)
+
 case class Degree(private val d: Int) {
   val value: Int = d % 360
 }
 
-object Logo {
+object Computations {
   def forward(pos: Position, l: Int): Free[Instruction, Position] =
     Free.liftF(Forward(pos, l))
+
   def backward(pos: Position, l: Int): Free[Instruction, Position] =
     Free.liftF(Backward(pos, l))
+
   def left(pos: Position, degree: Degree): Free[Instruction, Position] =
     Free.liftF(RotateLeft(pos, degree))
+
   def right(pos: Position, degree: Degree): Free[Instruction, Position] =
     Free.liftF(RotateRight(pos, degree))
+
   def showPosition(pos: Position): Free[Instruction, Unit] =
     Free.liftF(ShowPosition(pos))
+}
+
+object Logo {
+  import Computations._
 
   val exampleProgram: Position => Free[Instruction, Position] =
     start => for {
@@ -33,3 +43,11 @@ object Logo {
       p3 <- forward(p2, 10)
     } yield p3
 }
+
+//object InterpreterId extends (Instruction ~> Id) {
+//  import Computations._
+//
+//  override def apply[A](fa: Instruction[A]): Id[A] = fa match {
+//    case Forward(pos, len) => forward(pos, len)
+//  }
+//}
