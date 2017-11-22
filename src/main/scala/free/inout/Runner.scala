@@ -5,7 +5,7 @@ import cats.{Id, ~>}
 
 object Runner {
 
-  def run[A](program: Free[InOut,Id[A]])(interpreter: InOut ~> Id): Id[A] =
+  def run[A](program: Free[InOut, A])(interpreter: InOut ~> Id): A =
     program.foldMap(interpreter)
 
 }
@@ -15,9 +15,9 @@ object Programs {
 
   def program1: Free[InOut, Unit] =
     for {
-      _ <- printLine("who are you?")
+      _ <- printLine("Who are you?")
       name <- getLine
-      _ <- printLine(s"hi there, $name")
+      _ <- printLine(s"Hello, $name!")
     } yield ()
 }
 
