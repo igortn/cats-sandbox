@@ -2,7 +2,7 @@ package free.orders
 
 import cats.{Id, ~>}
 
-object Interpreter {
+object Interpreters {
 
   def orderPrinter: Order ~> Id = new ~>[Order, Id] {
     override def apply[A](fa: Order[A]): Id[A] = fa match {
@@ -12,6 +12,9 @@ object Interpreter {
       case Sell(stock, amount) =>
         println(s"Selling $amount of $stock")
         "OK"
+      case ListStocks() =>
+        println("Listing stocks:")
+        List("GOOG", "APPL", "MSFT")
     }
   }
 
@@ -19,7 +22,7 @@ object Interpreter {
 
 /**********************************************************
   **
-  **  Execute a program using this interpreter.
+  **  Execute a program using the orderPrinter interpreter.
   **
   **  def program = for {
   **    _ <- buy("GOOG", 100)

@@ -12,7 +12,7 @@ object EitherExamples {
   val result2: Either[NumberFormatException, List[Int]] = List("1", "abc", "3").traverse(parseIntEither)
 
   def check(): Unit = {
-    assert(result1.right.get == List(1,2,3), "result1 should right bound and wrap List(1,2,3)")
+    assert(result1.right.get == List(1,2,3), "result1 should be right bound and wrap List(1,2,3)")
     assert(result2.isLeft, "result2 wraps exception and should be left bound")
   }
 }

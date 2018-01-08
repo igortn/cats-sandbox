@@ -13,9 +13,9 @@ addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.fu
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.4")
 
 libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats-core" % "1.0.0-RC1"
-  , "org.typelevel" %% "cats-laws" % "1.0.0-RC1"
-  , "org.typelevel" %% "cats-free" % "1.0.0-RC1"
+    "org.typelevel" %% "cats-core" % "1.0.1"
+  , "org.typelevel" %% "cats-laws" % "1.0.1"
+  , "org.typelevel" %% "cats-free" % "1.0.1"
 
   , "io.monix" %% "monix" % "2.3.0"
   , "io.monix" %% "monix-cats" % "2.3.0"

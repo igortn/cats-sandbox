@@ -18,7 +18,7 @@ object Misc {
 
   def check(): Unit = {
     assert(result1.contains(List(1,2,3)), "result1 should be equal to Some(List(1,2,3))")
-    assert(result2.isEmpty, "result2 should be euqal to None")
+    assert(result2.isEmpty, "result2 should be equal to None")
   }
 
   // When traversing is done only to capture side-effects, and the actual values are not needed,

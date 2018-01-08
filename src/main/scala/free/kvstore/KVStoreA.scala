@@ -1,5 +1,7 @@
 package free.kvstore
 
+import cats.free.Free
+
 sealed trait KVStoreA[A]
 case class Put[T](key: String, value: T) extends KVStoreA[Unit]
 case class Get[T](key: String) extends KVStoreA[Option[T]]
@@ -21,6 +23,6 @@ object Ops {
   def update[T](key: String, f: T => T): KVStore[Unit] =
     for {
       vMaybe <- get[T](key)
-      _ <- vMaybe.map(v => put[T](key, f(v)))
+      _ <- vMaybe.map(v => put[T](key, f(v))).getOrElse(Free.pure())
     } yield ()
 }

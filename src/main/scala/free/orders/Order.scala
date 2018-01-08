@@ -5,6 +5,7 @@ import cats.free.Free._
 sealed trait Order[A]
 final case class Buy(stock: Symbol, amount: Int) extends Order[Response]
 final case class Sell(stock: Symbol, amount: Int) extends Order[Response]
+final case class ListStocks() extends Order[List[Symbol]]
 
 
 object Order {
@@ -13,4 +14,7 @@ object Order {
 
   def sell(stock: Symbol, amount: Int): OrderF[Response] =
     liftF(Sell(stock, amount))
+
+  def listStocks(): OrderF[List[Symbol]] =
+    liftF(ListStocks())
 }
